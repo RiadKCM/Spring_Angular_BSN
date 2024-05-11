@@ -1,0 +1,30 @@
+services:
+  mysql:
+    container_name: mysql-bsn
+    image: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bsn
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - spring-demo
+  mail-dev:
+    container_name: mail-dev-bsn
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  mysql:
+    driver: local
